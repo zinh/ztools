@@ -15,6 +15,10 @@ class MangafoxController < ApplicationController
     # get image link of page 2 and 3
     page2 = Nokogiri.parse open(chapter_link + "2.html")
     total_page = page2.at_xpath("//select[@class='m']/option[last()-1]/@value").value
+    previous_page = page2.at_xpath("//div[@id='chnav']/p[1]/a/@href")
+    next_page = page2.at_xpath("//div[@id='chnav']/p[2]/a/@href")
+    @previous_page_link = previous_page.value if previous_page.present?
+    @next_page_link = next_page.value if next_page.present?
     image2 = page2.at_xpath("//img[@id='image']/@src").value
     page3 = Nokogiri.parse open(chapter_link + "3.html")
     image3 = page3.at_xpath("//img[@id='image']/@src").value
