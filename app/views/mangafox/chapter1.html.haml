@@ -1,12 +1,12 @@
 - if @previous_page_link
-  %a{href: mangafox_chapter_path1(link: @previous_page_link)} Previous Chapter
+  %a{href: mangafox_chapter1_path(link: @previous_page_link)} Previous Chapter
 - if @next_page_link
-  %a{href: mangafox_chapter_path1(link: @next_page_link)} Next Chapter
+  %a{href: mangafox_chapter1_path(link: @next_page_link)} Next Chapter
 
 - @image_links.each do |image_link|
   %img{src: image_link, alt: image_link, width: "100%"}
 
 - if @previous_page_link
-  %a{href: mangafox_chapter_path1(link: @previous_page_link)} Previous Chapter
+  %a{href: mangafox_chapter1_path(link: @previous_page_link)} Previous Chapter
 - if @next_page_link
-  %a{href: mangafox_chapter_path1(link: @next_page_link)} Next Chapter
+  %a{href: mangafox_chapter1_path(link: @next_page_link)} Next Chapter
