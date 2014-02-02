@@ -18,3 +18,5 @@
 Gemfile.lock
 .ruby-gemset
 config/database.yml
+*.swp
+.rvmrc
