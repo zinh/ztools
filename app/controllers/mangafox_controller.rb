@@ -12,15 +12,39 @@ class MangafoxController < ApplicationController
   def chapter
     link = params[:link]
     chapter_link = link[0..link.rindex("/")]
-    # request link
-    doc = Nokogiri.parse open(link)
-    # get page number
-    total_page = doc.at_xpath("//select[@class='m']/option[last()-1]/@value")
+    # get image link of page 2 and 3
+    page2 = Nokogiri.parse open(chapter_link + "2.html")
+    total_page = page2.at_xpath("//select[@class='m']/option[last()-1]/@value").value
+    image2 = page2.at_xpath("//img[@id='image']/@src").value
+    page3 = Nokogiri.parse open(chapter_link + "3.html")
+    image3 = page3.at_xpath("//img[@id='image']/@src").value
+    # compare
+    start_pos = str_diff image2, image3
+    width = get_width(image2, start_pos)
+    first_part = image2[0..(start_pos - width)]
+    second_part = image2[(start_pos + 1)..-1]
     @image_links = []
-    (1..total_page.value.to_i).each do |page_number|
-      page = Nokogiri.parse open(chapter_link + page_number.to_s + ".html")
-      node = page.at_xpath("//img[@id='image']/@src")
-      @image_links.push node.value if node.present?
+    (1..total_page.to_i).each do |page_number|
+      @image_links.push(first_part + sprintf("%0#{width}d", page_number) + second_part)
     end
+  end
+  
+  private
+  def str_diff s1, s2, init_pos=0
+    i = init_pos
+    while i < s1.length
+      break if s1[i] != s2[i]
+      i+=1
+    end
+    return i
+  end
+
+  def get_width s, start_pos
+    i = start_pos - 1
+    while i > 0
+      break if s[i] != '0'
+      i-=1
+    end
+    return start_pos - i
   end
 end
