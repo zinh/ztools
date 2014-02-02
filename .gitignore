@@ -15,7 +15,6 @@
 /log/*.log
 /tmp
 .ruby-version
-Gemfile.lock
 .ruby-gemset
 config/database.yml
 *.swp
