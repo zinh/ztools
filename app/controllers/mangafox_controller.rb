@@ -4,12 +4,30 @@ class MangafoxController < ApplicationController
   def search
   end
 
+  #search ajax
+  def search_ajax
+    uri = URI.parse "http://mangafox.me/ajax/search.php"
+    search_param = {term: params[:query]}
+    uri.query = URI.encode_www_form( search_param )
+    result = uri.open.read
+    render json: result
+  end
+
   # list chapters of a specific manga
   def manga
+    link = params[:link]
+    doc = Nokogiri.parse open(link)
+    chapter_nodes = doc.xpath("//a[@class='tips']") || []
+    @chapters = []
+    chapter_nodes.each do |chapter_node|
+      title_node = chapter_node.at_xpath("./following-sibling::span[@class='title nowrap']/text()")
+      title = title_node.text if title_node.present?
+      @chapters.push({title: title, link: chapter_node.attributes['href'].value, link_id: chapter_node.text})
+    end
   end
 
   # list pages of a specific chapter
-  def chapter
+  def chapter1
     link = params[:link]
     chapter_link = link[0..link.rindex("/")]
     # get image link of page 2 and 3
@@ -40,7 +58,7 @@ class MangafoxController < ApplicationController
     end
   end
 
-  def chapter1
+  def chapter
     link = params[:link]
     chapter_link = link[0..link.rindex("/")]
     # request link

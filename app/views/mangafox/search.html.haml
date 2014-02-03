@@ -1,0 +1,12 @@
+%h1 Mangafox Search
+%div{'ng-controller' => 'MangafoxCtrl'}
+  .form-group
+    = text_field_tag 'query', '', class: 'form-control', placeholder: "Manga name", 'ng-model' => 'query'
+  .query-content{'ng-if' => 'query.length > 3'}
+    {{ mangas.length }} result for "{{query}}"
+  .search-result
+    %ul{class: "list-unstyled"}
+      %li{'ng-repeat' => 'manga in mangas'}
+        %a{href: "/mangafox/manga?link=http://mangafox.me/manga/{{manga[2]}}"}
+          %img{src: "http://www.mangafox.com/icon/{{manga[0]}}.jpg"}
+          {{ manga[1] }}

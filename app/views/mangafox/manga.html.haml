@@ -1,0 +1,5 @@
+%ul{class: "list-unstyled"}
+- @chapters.each do |chapter|
+  %li
+    = link_to chapter[:link_id], mangafox_chapter_path(link: chapter[:link])
+    = chapter[:title]
