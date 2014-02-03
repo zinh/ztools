@@ -7,6 +7,6 @@
   .search-result
     %ul{class: "list-unstyled"}
       %li{'ng-repeat' => 'manga in mangas'}
-        %a{href: "/mangafox/manga?link=http://mangafox.me/manga/{{manga[2]}}"}
+        %a{href: "/mangafox/manga?link=http://mangafox.me/manga/{{manga[2]}}", target: '_blank'}
           %img{src: "http://www.mangafox.com/icon/{{manga[0]}}.jpg"}
           {{ manga[1] }}
