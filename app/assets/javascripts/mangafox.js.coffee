@@ -7,3 +7,5 @@
         )
   ,true
   )
+
+@MangafoxCtrl.$inject = ['$scope', '$http']
