@@ -1,0 +1,1 @@
+(function(){this.MangafoxCtrl=function(t,n){return t.$watch("query",function(a){return a.length>3?n.post("/mangafox/search/ajax",{query:a},{headers:{"X-CSRF-Token":$("meta[name=csrf-token]").attr("content")}}).success(function(n){return t.mangas=n}):void 0},!0)},this.MangafoxCtrl.$inject=["$scope","$http"]}).call(this);
