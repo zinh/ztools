@@ -65,8 +65,8 @@ class MangafoxController < ApplicationController
     doc = Nokogiri.parse open(link)
     previous_page = doc.at_xpath("//div[@id='chnav']/p[1]/a/@href")
     next_page = doc.at_xpath("//div[@id='chnav']/p[2]/a/@href")
-    @previous_page_link = previous_page.value if previous_page.present?
-    @next_page_link = next_page.value if next_page.present?
+    @previous_page_link = previous_page.value.gsub('http://mangafox.me/manga/', '') if previous_page.present?
+    @next_page_link = next_page.value.gsub('http://mangafox.me/manga/', '')  if next_page.present?
     # get page number
     total_page = doc.at_xpath("//select[@class='m']/option[last()-1]/@value")
     @image_links = []
