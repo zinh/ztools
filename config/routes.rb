@@ -6,4 +6,5 @@ ZinhTool::Application.routes.draw do
     post '/mangafox/search/ajax' => :search_ajax
     get '/mangafox/manga' => :manga, as: 'mangafox_manga'
   end
+  root to: 'homes#index'
 end
