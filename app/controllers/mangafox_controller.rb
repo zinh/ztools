@@ -15,7 +15,7 @@ class MangafoxController < ApplicationController
 
   # list chapters of a specific manga
   def manga
-    link = params[:link]
+    link = "http://mangafox.me/manga/#{params[:link]}" 
     doc = Nokogiri.parse open(link)
     chapter_nodes = doc.xpath("//a[@class='tips']") || []
     @chapters = []
@@ -59,7 +59,7 @@ class MangafoxController < ApplicationController
   end
 
   def chapter
-    link = params[:link]
+    link = "http://mangafox.me/manga/#{params[:link]}" 
     chapter_link = link[0..link.rindex("/")]
     # request link
     doc = Nokogiri.parse open(link)
